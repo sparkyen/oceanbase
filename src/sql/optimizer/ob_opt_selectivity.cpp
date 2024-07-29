@@ -682,6 +682,7 @@ int ObOptSelectivity::calculate_selectivity(const OptTableMetas &table_metas,
     const ObRawExpr *qual = predicates.at(i);
     ObSelEstimator *estimator = NULL;
     double single_sel = false;
+    LOG_TRACE("[sel-calculate_selectivity] predict ", K(i), KPC(qual));
     if (OB_FAIL(factory.create_estimator(ctx, qual, estimator))) {
       LOG_WARN("failed to create estimator", KPC(qual));
     } else if (OB_FAIL(ObSelEstimator::append_estimators(sel_estimators, estimator))) {
@@ -693,11 +694,12 @@ int ObOptSelectivity::calculate_selectivity(const OptTableMetas &table_metas,
     } else if (FALSE_IT(single_sel = revise_between_0_1(single_sel))) {
       // never reach
     } else if (OB_FAIL(add_var_to_array_no_dup(all_predicate_sel, ObExprSelPair(qual, single_sel)))) {
-      LOG_WARN("fail ed to add selectivity to plan", K(ret), K(qual), K(selectivity));
+      LOG_WARN("failed to add selectivity to plan", K(ret), K(qual), K(selectivity));
     } else {
       // We remember each predicate's selectivity in the plan so that we can reorder them
       // in the vector of filters according to their selectivity.
       LOG_PRINT_EXPR(TRACE, "calculate one qual selectivity", *qual, K(single_sel));
+      LOG_TRACE("[sel-calculate_selectivity] estimator ", K(i), KPC(estimator));
     }
   }
   if (OB_SUCC(ret) && OB_FAIL(selectivities.prepare_allocate(sel_estimators.count()))) {
@@ -985,7 +987,7 @@ int ObOptSelectivity::calculate_qual_selectivity(const OptTableMetas &table_meta
   } else if (FALSE_IT(selectivity = revise_between_0_1(selectivity))) {
     // never reach
   } else if (OB_FAIL(add_var_to_array_no_dup(all_predicate_sel, ObExprSelPair(&qual, selectivity)))) {
-    LOG_WARN("fail ed to add selectivity to plan", K(ret), K(qual), K(selectivity));
+    LOG_WARN("failed to add selectivity to plan", K(ret), K(qual), K(selectivity));
   } else {
     // We remember each predicate's selectivity in the plan so that we can reorder them
     // in the vector of filters according to their selectivity.
@@ -2116,6 +2118,7 @@ int ObOptSelectivity::get_equal_pred_sel(const ObHistogram &histogram,
                                          const double sample_size_scale,
                                          double &density)
 {
+  LOG_TRACE("get equal pred sel", K(histogram), K(value), K(sample_size_scale));
   int ret = OB_SUCCESS;
   int64_t idx = -1;
   bool is_equal = false;
@@ -2133,8 +2136,12 @@ int ObOptSelectivity::get_equal_pred_sel(const ObHistogram &histogram,
   } else {
     density = static_cast<double>(histogram.get(idx).endpoint_repeat_count_)
         / histogram.get_sample_size();
+    LOG_TRACE("[sel-get_equal_pred_sel] endpoint_repeat_count_ and sample_size: ", 
+                    K( static_cast<double>(histogram.get(idx).endpoint_repeat_count_)), 
+                    K(histogram.get_sample_size()));
   }
   if (OB_SUCC(ret) && sample_size_scale > 0) {
+    LOG_TRACE("[sel-get_equal_pred_sel] sample_size_scale: ", K(sample_size_scale));
     density /= sample_size_scale;
   }
   return ret;
@@ -2456,6 +2463,7 @@ int ObOptSelectivity::calculate_distinct(const OptTableMetas &table_metas,
   }
   //calculate rows
   for (int64_t i = 0; OB_SUCC(ret) && i < expr_ndv.count(); ++i) {
+    LOG_TRACE("【SEL INFO】expr_ndv at i", K(i), K(expr_ndv.at(i)));
     if (0 == i) {
       rows *= expr_ndv.at(i);
     } else {
@@ -2465,8 +2473,9 @@ int ObOptSelectivity::calculate_distinct(const OptTableMetas &table_metas,
   //refine
   if (OB_SUCC(ret) && need_refine) {
     rows = std::min(rows, origin_rows);
-    LOG_TRACE("succeed to calculate distinct", K(origin_rows), K(rows), K(exprs));
+    // LOG_TRACE("succeed to calculate distinct", K(origin_rows), K(rows), K(exprs));
   }
+  LOG_TRACE("succeed to calculate distinct", K(origin_rows), K(rows), K(exprs));
   return ret;
 }
 
