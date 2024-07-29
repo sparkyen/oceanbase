@@ -1,3 +1,21 @@
+Doxyfile
+audit/
+build_debug.sh
+interact.sh
+run.sh
+run/
+src/Doxyfile
+src/sql/Doxyfile
+test/tpch/
+tmp.sh
+tools/deploy/TMP_DIR/
+tools/deploy/tmp/
+tpch.sh
+tools/deploy/single2.yaml
+src/html
+tricks/*
+tools/deploy/var/*
+tools/deploy/record/*
 ############# root #############
 *.a
 *.bak
