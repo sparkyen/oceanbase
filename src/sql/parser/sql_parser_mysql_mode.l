@@ -99,6 +99,11 @@ mysql_compatible_comment_end \*\/
 ColumnStorePattern  (WITH{whitespace}COLUMN{whitespace}GROUP)
 
 %%
+LOAD_FILE {
+  REPUT_TOKEN_NEG_SIGN(LOAD_FILE); 
+  return LOAD_FILE;
+}
+
 {ColumnStorePattern}                { REPUT_TOKEN_NEG_SIGN(WITH_COLUMN_GROUP); }
 INTERVAL {
 
