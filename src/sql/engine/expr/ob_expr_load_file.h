@@ -10,8 +10,8 @@
  * See the Mulan PubL v2 for more details.
  */
 
-#ifndef OCEANBASE_SQL_ENGINE_EXPR_MATER_POST_WAIT_
-#define OCEANBASE_SQL_ENGINE_EXPR_MATER_POST_WAIT_
+#ifndef OCEANBASE_SQL_ENGINE_EXPR_LOAD_FILE_
+#define OCEANBASE_SQL_ENGINE_EXPR_LOAD_FILE_
 
 #include "sql/engine/expr/ob_expr_operator.h"
 
@@ -25,8 +25,7 @@ class ObExprLoadFile : public ObFuncExprOperator
 public:
   explicit  ObExprLoadFile(common::ObIAllocator &alloc);
   virtual   ~ObExprLoadFile();
-  virtual int calc_result_type1(ObExprResType &type, 
-                                ObExprResType &type1,
+  virtual int calc_result_type1(ObExprResType &type, ObExprResType &type1,
                                 common::ObExprTypeCtx &type_ctx) const override;
   static int eval_load_file(const ObExpr &expr, ObEvalCtx &ctx,
                                   ObDatum &expr_datum);
