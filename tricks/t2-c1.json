@@ -1,0 +1,318 @@
+{
+    stmt_type: 1,
+    transpose_item: null,
+    table: [
+      {
+        table_id: 18446744073709551613,
+        table_name: "t2",
+        alias_name: "",
+        synonym_name: "",
+        synonym_db_name: "",
+        qb_name: "SEL$1",
+        table_type: 0,
+        ref_id: 500033,
+        database_name: "test",
+        for_update: false,
+        wait: -1,
+        skip_locked: false,
+        view_base_item: 18446744073709551615,
+        dblink_id: -1,
+        dblink_name: "",
+        link_database_name: "",
+        is_reverse_link: false,
+        ddl_schema_version: 1726648472572688,
+        ddl_table_id: -1,
+        is_view_table: false,
+        part_ids: [
+          
+        ],
+        part_names: [
+          
+        ],
+        cte_type: 0,
+        function_table_expr: NULL,
+        flashback_query_type: 0,
+        flashback_query_expr: NULL,
+        table_type: 3,
+        exec_params: [
+          
+        ],
+        sample_info: NULL,
+        mview_id: 18446744073709551615,
+        need_expand_rt_mv: false,
+        external_table_partition: ""
+      }
+    ],
+    joined_table: [
+      
+    ],
+    semi_info: [
+      
+    ],
+    partition_express: [
+      
+    ],
+    column: [
+      {
+        column_id: 1,
+        table_id: 18446744073709551613,
+        column: "__pk_increment",
+        auto_filled_timestamp: false,
+        default_value: {
+          "NULL": "NULL"
+        },
+        base_tid: 500033,
+        base_cid: 1,
+        expression: {
+          item_type: "T_REF_COLUMN",
+          result_type: {
+            meta: {
+              type: "BIGINT UNSIGNED",
+              collation: "binary",
+              coercibility: "NUMERIC"
+            },
+            accuracy: {
+              length: -1,
+              precision: -1,
+              scale: -1
+            },
+            flag: 1064963,
+            calc_type: {
+              type: "NULL",
+              collation: "invalid_type",
+              coercibility: "INVALID"
+            }
+          },
+          expr_info: [
+            "IS_COLUMN",
+            "CNT_COLUMN"
+          ],
+          rel_id: [
+            1
+          ],
+          table_id: 18446744073709551613,
+          column_id: 1,
+          database_name: "test",
+          table_name: "t2",
+          synonym_name: "",
+          synonym_db_name: "",
+          column_name: "__pk_increment",
+          column_flags: 0,
+          enum_set_values: [
+            
+          ],
+          is_lob_column: false,
+          is_joined_dup_column: false,
+          is_unpivot_mocked_column: false,
+          is_hidden: true,
+          from_alias_table: false,
+          is_rowkey_column: true,
+          is_unique_key_column: false,
+          is_mul_key_column: false,
+          is_strict_json_column: 0,
+          srs_id: 18446744073709551584,
+          udt_set_id: 0
+        }
+      },
+      {
+        column_id: 17,
+        table_id: 18446744073709551613,
+        column: "c1",
+        auto_filled_timestamp: false,
+        default_value: {
+          "NULL": "NULL"
+        },
+        base_tid: 500033,
+        base_cid: 17,
+        expression: {
+          item_type: "T_REF_COLUMN",
+          result_type: {
+            meta: {
+              type: "INT",
+              collation: "binary",
+              coercibility: "NUMERIC"
+            },
+            accuracy: {
+              length: -1,
+              precision: 11,
+              scale: 0
+            },
+            flag: 0,
+            calc_type: {
+              type: "NULL",
+              collation: "invalid_type",
+              coercibility: "INVALID"
+            }
+          },
+          expr_info: [
+            "IS_COLUMN",
+            "CNT_COLUMN"
+          ],
+          rel_id: [
+            1
+          ],
+          table_id: 18446744073709551613,
+          column_id: 17,
+          database_name: "test",
+          table_name: "t2",
+          synonym_name: "",
+          synonym_db_name: "",
+          column_name: "c1",
+          column_flags: 0,
+          enum_set_values: [
+            
+          ],
+          is_lob_column: false,
+          is_joined_dup_column: false,
+          is_unpivot_mocked_column: false,
+          is_hidden: false,
+          from_alias_table: false,
+          is_rowkey_column: false,
+          is_unique_key_column: false,
+          is_mul_key_column: false,
+          is_strict_json_column: 0,
+          srs_id: 18446744073709551584,
+          udt_set_id: 0
+        }
+      }
+    ],
+    select: [
+      {
+        expression: {
+          item_type: "T_REF_COLUMN",
+          result_type: {
+            meta: {
+              type: "INT",
+              collation: "binary",
+              coercibility: "NUMERIC"
+            },
+            accuracy: {
+              length: -1,
+              precision: 11,
+              scale: 0
+            },
+            flag: 0,
+            calc_type: {
+              type: "NULL",
+              collation: "invalid_type",
+              coercibility: "INVALID"
+            }
+          },
+          expr_info: [
+            "IS_COLUMN",
+            "CNT_COLUMN"
+          ],
+          rel_id: [
+            1
+          ],
+          table_id: 18446744073709551613,
+          column_id: 17,
+          database_name: "test",
+          table_name: "t2",
+          synonym_name: "",
+          synonym_db_name: "",
+          column_name: "c1",
+          column_flags: 0,
+          enum_set_values: [
+            
+          ],
+          is_lob_column: false,
+          is_joined_dup_column: false,
+          is_unpivot_mocked_column: false,
+          is_hidden: false,
+          from_alias_table: false,
+          is_rowkey_column: false,
+          is_unique_key_column: false,
+          is_mul_key_column: false,
+          is_strict_json_column: 0,
+          srs_id: 18446744073709551584,
+          udt_set_id: 0
+        },
+        is_alias: false,
+        alias_name: "c1",
+        expr_name: "c1",
+        paramed_alias_name: "",
+        questions_pos: [
+          
+        ],
+        params_idx: [
+          
+        ],
+        esc_str_flag: false,
+        need_check_dup_name: false,
+        implicit_filled: false,
+        is_unpivot_mocked_column: false,
+        is_hidden_rowid: false
+      }
+    ],
+    distinct: false,
+    nocycle: false,
+    from: [
+      {
+        table_id: 18446744073709551613,
+        is_join: false
+      }
+    ],
+    start_with: [
+      
+    ],
+    connect_by: [
+      
+    ],
+    where: [
+      
+    ],
+    group_by: [
+      
+    ],
+    rollup: [
+      
+    ],
+    having: [
+      
+    ],
+    aggr_func: [
+      
+    ],
+    order_by: [
+      
+    ],
+    limit: null,
+    win_func: [
+      
+    ],
+    offset: null,
+    show_stmt_ctx: {
+      is_from_show_stmt: false,
+      global_scope: false,
+      tenant_id: 18446744073709551615,
+      show_database_id: 18446744073709551615,
+      show_table_id: 18446744073709551615,
+      grants_user_id: 18446744073709551615,
+      show_seed: false
+    },
+    hint: {
+      
+    },
+    user_variables: [
+      
+    ],
+    query_context: {
+      param_num: 0,
+      fetch_cur_time: true,
+      calculable_items: [
+        
+      ]
+    },
+    pseudo_column_like_exprs: [
+      
+    ],
+    child_stmts: [
+      
+    ],
+    is_hierarchical_query: false,
+    check_option: 0,
+    dblink_id: -1,
+    is_reverse_link: false,
+    is_expanded_mview: false
+  }

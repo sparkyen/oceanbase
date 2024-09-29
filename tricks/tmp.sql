@@ -1,0 +1,3 @@
+select /*+ USE_PLAN_CACHE( NONE ) */ t1.c1 from t1 where (t1.c0 = any (select t2.c3 from t2 where (t2.c2 > 2))) and (t1.c3 = any (select t3.c0 from t3 where (t3.c2 > 5)))
+
+select /*+ USE_PLAN_CACHE( NONE ) */t1.c1 from t1,  left semi join (select t2.c3 AS c3 from t2 where (t2.c2 > 2)) VIEW1 on (t1.c0 = VIEW1.c3),  left semi join (select t3.c0 AS c0 from t3 where (t3.c2 > 5)) VIEW2 on (t1.c3 = VIEW2.c0)

@@ -1,0 +1,1200 @@
+{
+    "stmt_type": "5",
+    "table": [
+        {
+            "table_id": "18446744073709551614",
+            "table_name": "t1",
+            "alias_name": "",
+            "synonym_name": "",
+            "synonym_db_name": "",
+            "qb_name": "UPD$1",
+            "table_type": "0",
+            "ref_id": "500032",
+            "database_name": "test",
+            "for_update": false,
+            "wait":-"1",
+            "skip_locked": false,
+            "view_base_item": "18446744073709551615",
+            "dblink_id":-"1",
+            "dblink_name": "",
+            "link_database_name": "",
+            "is_reverse_link": false,
+            "ddl_schema_version": "1726648472035416",
+            "ddl_table_id":-"1",
+            "is_view_table": false,
+            "part_ids": [],
+            "part_names": [],
+            "cte_type": "0",
+            "function_table_expr":NULL,
+            "flashback_query_type": "0",
+            "flashback_query_expr":NULL,
+            "table_type": "3",
+            "exec_params": [],
+            "sample_info":NULL,
+            "mview_id": "18446744073709551615",
+            "need_expand_rt_mv": false,
+            "external_table_partition": ""
+        }
+    ],
+    "is_ignore": false,
+    "partition_express": [],
+    "column": [
+        {
+            "column_id": "1",
+            "table_id": "18446744073709551614",
+            "column": "__pk_increment",
+            "auto_filled_timestamp": false,
+            "default_value": {
+                "NULL": "NULL"
+            },
+            "base_tid": "18446744073709551614",
+            "base_cid": "1",
+            "expression": {
+                "item_type": "T_REF_COLUMN",
+                "result_type": {
+                    "meta": {
+                        "type": "BIGINT UNSIGNED",
+                        "collation": "binary",
+                        "coercibility": "NUMERIC"
+                    },
+                    "accuracy": {
+                        "length":-"1",
+                        "precision":-"1",
+                        "scale":-"1"
+                    },
+                    "flag": "1064963",
+                    "calc_type": {
+                        "type": "NULL",
+                        "collation": "invalid_type",
+                        "coercibility": "INVALID"
+                    }
+                },
+                "expr_info": [
+                    "IS_COLUMN",
+                    "CNT_COLUMN"
+                ],
+                "rel_id": [
+                    "1"
+                ],
+                "table_id": "18446744073709551614",
+                "column_id": "1",
+                "database_name": "test",
+                "table_name": "t1",
+                "synonym_name": "",
+                "synonym_db_name": "",
+                "column_name": "__pk_increment",
+                "column_flags": "0",
+                "enum_set_values": [],
+                "is_lob_column": false,
+                "is_joined_dup_column": false,
+                "is_unpivot_mocked_column": false,
+                "is_hidden": true,
+                "from_alias_table": false,
+                "is_rowkey_column": true,
+                "is_unique_key_column": false,
+                "is_mul_key_column": false,
+                "is_strict_json_column": "0",
+                "srs_id": "18446744073709551584",
+                "udt_set_id": "0"
+            }
+        },
+        {
+            "column_id": "17",
+            "table_id": "18446744073709551614",
+            "column": "c1",
+            "auto_filled_timestamp": false,
+            "default_value": {
+                "NULL": "NULL"
+            },
+            "base_tid": "18446744073709551614",
+            "base_cid": "17",
+            "expression": {
+                "item_type": "T_REF_COLUMN",
+                "result_type": {
+                    "meta": {
+                        "type": "INT",
+                        "collation": "binary",
+                        "coercibility": "NUMERIC"
+                    },
+                    "accuracy": {
+                        "length":-"1",
+                        "precision": "11",
+                        "scale": "0"
+                    },
+                    "flag": "0",
+                    "calc_type": {
+                        "type": "NULL",
+                        "collation": "invalid_type",
+                        "coercibility": "INVALID"
+                    }
+                },
+                "expr_info": [
+                    "IS_COLUMN",
+                    "CNT_COLUMN"
+                ],
+                "rel_id": [
+                    "1"
+                ],
+                "table_id": "18446744073709551614",
+                "column_id": "17",
+                "database_name": "test",
+                "table_name": "t1",
+                "synonym_name": "",
+                "synonym_db_name": "",
+                "column_name": "c1",
+                "column_flags": "0",
+                "enum_set_values": [],
+                "is_lob_column": false,
+                "is_joined_dup_column": false,
+                "is_unpivot_mocked_column": false,
+                "is_hidden": false,
+                "from_alias_table": false,
+                "is_rowkey_column": false,
+                "is_unique_key_column": false,
+                "is_mul_key_column": false,
+                "is_strict_json_column": "0",
+                "srs_id": "18446744073709551584",
+                "udt_set_id": "0"
+            }
+        },
+        {
+            "column_id": "18",
+            "table_id": "18446744073709551614",
+            "column": "c2",
+            "auto_filled_timestamp": false,
+            "default_value": {
+                "NULL": "NULL"
+            },
+            "base_tid": "18446744073709551614",
+            "base_cid": "18",
+            "expression": {
+                "item_type": "T_REF_COLUMN",
+                "result_type": {
+                    "meta": {
+                        "type": "INT",
+                        "collation": "binary",
+                        "coercibility": "NUMERIC"
+                    },
+                    "accuracy": {
+                        "length":-"1",
+                        "precision": "11",
+                        "scale": "0"
+                    },
+                    "flag": "0",
+                    "calc_type": {
+                        "type": "NULL",
+                        "collation": "invalid_type",
+                        "coercibility": "INVALID"
+                    }
+                },
+                "expr_info": [
+                    "IS_COLUMN",
+                    "CNT_COLUMN"
+                ],
+                "rel_id": [
+                    "1"
+                ],
+                "table_id": "18446744073709551614",
+                "column_id": "18",
+                "database_name": "test",
+                "table_name": "t1",
+                "synonym_name": "",
+                "synonym_db_name": "",
+                "column_name": "c2",
+                "column_flags": "0",
+                "enum_set_values": [],
+                "is_lob_column": false,
+                "is_joined_dup_column": false,
+                "is_unpivot_mocked_column": false,
+                "is_hidden": false,
+                "from_alias_table": false,
+                "is_rowkey_column": false,
+                "is_unique_key_column": false,
+                "is_mul_key_column": false,
+                "is_strict_json_column": "0",
+                "srs_id": "18446744073709551584",
+                "udt_set_id": "0"
+            }
+        },
+        {
+            "column_id": "16",
+            "table_id": "18446744073709551614",
+            "column": "c0",
+            "auto_filled_timestamp": false,
+            "default_value": {
+                "NULL": "NULL"
+            },
+            "base_tid": "18446744073709551614",
+            "base_cid": "16",
+            "expression": {
+                "item_type": "T_REF_COLUMN",
+                "result_type": {
+                    "meta": {
+                        "type": "INT",
+                        "collation": "binary",
+                        "coercibility": "NUMERIC"
+                    },
+                    "accuracy": {
+                        "length":-"1",
+                        "precision": "11",
+                        "scale": "0"
+                    },
+                    "flag": "0",
+                    "calc_type": {
+                        "type": "NULL",
+                        "collation": "invalid_type",
+                        "coercibility": "INVALID"
+                    }
+                },
+                "expr_info": [
+                    "IS_COLUMN",
+                    "CNT_COLUMN"
+                ],
+                "rel_id": [
+                    "1"
+                ],
+                "table_id": "18446744073709551614",
+                "column_id": "16",
+                "database_name": "test",
+                "table_name": "t1",
+                "synonym_name": "",
+                "synonym_db_name": "",
+                "column_name": "c0",
+                "column_flags": "0",
+                "enum_set_values": [],
+                "is_lob_column": false,
+                "is_joined_dup_column": false,
+                "is_unpivot_mocked_column": false,
+                "is_hidden": false,
+                "from_alias_table": false,
+                "is_rowkey_column": false,
+                "is_unique_key_column": false,
+                "is_mul_key_column": false,
+                "is_strict_json_column": "0",
+                "srs_id": "18446744073709551584",
+                "udt_set_id": "0"
+            }
+        },
+        {
+            "column_id": "19",
+            "table_id": "18446744073709551614",
+            "column": "c3",
+            "auto_filled_timestamp": false,
+            "default_value": {
+                "NULL": "NULL"
+            },
+            "base_tid": "18446744073709551614",
+            "base_cid": "19",
+            "expression": {
+                "item_type": "T_REF_COLUMN",
+                "result_type": {
+                    "meta": {
+                        "type": "INT",
+                        "collation": "binary",
+                        "coercibility": "NUMERIC"
+                    },
+                    "accuracy": {
+                        "length":-"1",
+                        "precision": "11",
+                        "scale": "0"
+                    },
+                    "flag": "0",
+                    "calc_type": {
+                        "type": "NULL",
+                        "collation": "invalid_type",
+                        "coercibility": "INVALID"
+                    }
+                },
+                "expr_info": [
+                    "IS_COLUMN",
+                    "CNT_COLUMN"
+                ],
+                "rel_id": [
+                    "1"
+                ],
+                "table_id": "18446744073709551614",
+                "column_id": "19",
+                "database_name": "test",
+                "table_name": "t1",
+                "synonym_name": "",
+                "synonym_db_name": "",
+                "column_name": "c3",
+                "column_flags": "0",
+                "enum_set_values": [],
+                "is_lob_column": false,
+                "is_joined_dup_column": false,
+                "is_unpivot_mocked_column": false,
+                "is_hidden": false,
+                "from_alias_table": false,
+                "is_rowkey_column": false,
+                "is_unique_key_column": false,
+                "is_mul_key_column": false,
+                "is_strict_json_column": "0",
+                "srs_id": "18446744073709551584",
+                "udt_set_id": "0"
+            }
+        }
+    ],
+    "update_tables": [
+        {
+            "table_id": "18446744073709551614",
+            "loc_table_id": "18446744073709551614",
+            "ref_table_id": "500032",
+            "table_name": "t1",
+            "table_type": "2",
+            "column_exprs": [
+                {
+                    "item_type": "T_REF_COLUMN",
+                    "result_type": {
+                        "meta": {
+                            "type": "BIGINT UNSIGNED",
+                            "collation": "binary",
+                            "coercibility": "NUMERIC"
+                        },
+                        "accuracy": {
+                            "length":-"1",
+                            "precision":-"1",
+                            "scale":-"1"
+                        },
+                        "flag": "1064963",
+                        "calc_type": {
+                            "type": "NULL",
+                            "collation": "invalid_type",
+                            "coercibility": "INVALID"
+                        }
+                    },
+                    "expr_info": [
+                        "IS_COLUMN",
+                        "CNT_COLUMN"
+                    ],
+                    "rel_id": [
+                        "1"
+                    ],
+                    "table_id": "18446744073709551614",
+                    "column_id": "1",
+                    "database_name": "test",
+                    "table_name": "t1",
+                    "synonym_name": "",
+                    "synonym_db_name": "",
+                    "column_name": "__pk_increment",
+                    "column_flags": "0",
+                    "enum_set_values": [],
+                    "is_lob_column": false,
+                    "is_joined_dup_column": false,
+                    "is_unpivot_mocked_column": false,
+                    "is_hidden": true,
+                    "from_alias_table": false,
+                    "is_rowkey_column": true,
+                    "is_unique_key_column": false,
+                    "is_mul_key_column": false,
+                    "is_strict_json_column": "0",
+                    "srs_id": "18446744073709551584",
+                    "udt_set_id": "0"
+                },
+                {
+                    "item_type": "T_REF_COLUMN",
+                    "result_type": {
+                        "meta": {
+                            "type": "INT",
+                            "collation": "binary",
+                            "coercibility": "NUMERIC"
+                        },
+                        "accuracy": {
+                            "length":-"1",
+                            "precision": "11",
+                            "scale": "0"
+                        },
+                        "flag": "0",
+                        "calc_type": {
+                            "type": "NULL",
+                            "collation": "invalid_type",
+                            "coercibility": "INVALID"
+                        }
+                    },
+                    "expr_info": [
+                        "IS_COLUMN",
+                        "CNT_COLUMN"
+                    ],
+                    "rel_id": [
+                        "1"
+                    ],
+                    "table_id": "18446744073709551614",
+                    "column_id": "16",
+                    "database_name": "test",
+                    "table_name": "t1",
+                    "synonym_name": "",
+                    "synonym_db_name": "",
+                    "column_name": "c0",
+                    "column_flags": "0",
+                    "enum_set_values": [],
+                    "is_lob_column": false,
+                    "is_joined_dup_column": false,
+                    "is_unpivot_mocked_column": false,
+                    "is_hidden": false,
+                    "from_alias_table": false,
+                    "is_rowkey_column": false,
+                    "is_unique_key_column": false,
+                    "is_mul_key_column": false,
+                    "is_strict_json_column": "0",
+                    "srs_id": "18446744073709551584",
+                    "udt_set_id": "0"
+                },
+                {
+                    "item_type": "T_REF_COLUMN",
+                    "result_type": {
+                        "meta": {
+                            "type": "INT",
+                            "collation": "binary",
+                            "coercibility": "NUMERIC"
+                        },
+                        "accuracy": {
+                            "length":-"1",
+                            "precision": "11",
+                            "scale": "0"
+                        },
+                        "flag": "0",
+                        "calc_type": {
+                            "type": "NULL",
+                            "collation": "invalid_type",
+                            "coercibility": "INVALID"
+                        }
+                    },
+                    "expr_info": [
+                        "IS_COLUMN",
+                        "CNT_COLUMN"
+                    ],
+                    "rel_id": [
+                        "1"
+                    ],
+                    "table_id": "18446744073709551614",
+                    "column_id": "17",
+                    "database_name": "test",
+                    "table_name": "t1",
+                    "synonym_name": "",
+                    "synonym_db_name": "",
+                    "column_name": "c1",
+                    "column_flags": "0",
+                    "enum_set_values": [],
+                    "is_lob_column": false,
+                    "is_joined_dup_column": false,
+                    "is_unpivot_mocked_column": false,
+                    "is_hidden": false,
+                    "from_alias_table": false,
+                    "is_rowkey_column": false,
+                    "is_unique_key_column": false,
+                    "is_mul_key_column": false,
+                    "is_strict_json_column": "0",
+                    "srs_id": "18446744073709551584",
+                    "udt_set_id": "0"
+                },
+                {
+                    "item_type": "T_REF_COLUMN",
+                    "result_type": {
+                        "meta": {
+                            "type": "INT",
+                            "collation": "binary",
+                            "coercibility": "NUMERIC"
+                        },
+                        "accuracy": {
+                            "length":-"1",
+                            "precision": "11",
+                            "scale": "0"
+                        },
+                        "flag": "0",
+                        "calc_type": {
+                            "type": "NULL",
+                            "collation": "invalid_type",
+                            "coercibility": "INVALID"
+                        }
+                    },
+                    "expr_info": [
+                        "IS_COLUMN",
+                        "CNT_COLUMN"
+                    ],
+                    "rel_id": [
+                        "1"
+                    ],
+                    "table_id": "18446744073709551614",
+                    "column_id": "18",
+                    "database_name": "test",
+                    "table_name": "t1",
+                    "synonym_name": "",
+                    "synonym_db_name": "",
+                    "column_name": "c2",
+                    "column_flags": "0",
+                    "enum_set_values": [],
+                    "is_lob_column": false,
+                    "is_joined_dup_column": false,
+                    "is_unpivot_mocked_column": false,
+                    "is_hidden": false,
+                    "from_alias_table": false,
+                    "is_rowkey_column": false,
+                    "is_unique_key_column": false,
+                    "is_mul_key_column": false,
+                    "is_strict_json_column": "0",
+                    "srs_id": "18446744073709551584",
+                    "udt_set_id": "0"
+                },
+                {
+                    "item_type": "T_REF_COLUMN",
+                    "result_type": {
+                        "meta": {
+                            "type": "INT",
+                            "collation": "binary",
+                            "coercibility": "NUMERIC"
+                        },
+                        "accuracy": {
+                            "length":-"1",
+                            "precision": "11",
+                            "scale": "0"
+                        },
+                        "flag": "0",
+                        "calc_type": {
+                            "type": "NULL",
+                            "collation": "invalid_type",
+                            "coercibility": "INVALID"
+                        }
+                    },
+                    "expr_info": [
+                        "IS_COLUMN",
+                        "CNT_COLUMN"
+                    ],
+                    "rel_id": [
+                        "1"
+                    ],
+                    "table_id": "18446744073709551614",
+                    "column_id": "19",
+                    "database_name": "test",
+                    "table_name": "t1",
+                    "synonym_name": "",
+                    "synonym_db_name": "",
+                    "column_name": "c3",
+                    "column_flags": "0",
+                    "enum_set_values": [],
+                    "is_lob_column": false,
+                    "is_joined_dup_column": false,
+                    "is_unpivot_mocked_column": false,
+                    "is_hidden": false,
+                    "from_alias_table": false,
+                    "is_rowkey_column": false,
+                    "is_unique_key_column": false,
+                    "is_mul_key_column": false,
+                    "is_strict_json_column": "0",
+                    "srs_id": "18446744073709551584",
+                    "udt_set_id": "0"
+                }
+            ],
+            "check_constraint_exprs": [],
+            "view_check_exprs": [],
+            "need_filter_null": false,
+            "assignments": [
+                {
+                    "column": {
+                        "item_type": "T_REF_COLUMN",
+                        "result_type": {
+                            "meta": {
+                                "type": "INT",
+                                "collation": "binary",
+                                "coercibility": "NUMERIC"
+                            },
+                            "accuracy": {
+                                "length":-"1",
+                                "precision": "11",
+                                "scale": "0"
+                            },
+                            "flag": "0",
+                            "calc_type": {
+                                "type": "NULL",
+                                "collation": "invalid_type",
+                                "coercibility": "INVALID"
+                            }
+                        },
+                        "expr_info": [
+                            "IS_COLUMN",
+                            "CNT_COLUMN"
+                        ],
+                        "rel_id": [
+                            "1"
+                        ],
+                        "table_id": "18446744073709551614",
+                        "column_id": "17",
+                        "database_name": "test",
+                        "table_name": "t1",
+                        "synonym_name": "",
+                        "synonym_db_name": "",
+                        "column_name": "c1",
+                        "column_flags": "0",
+                        "enum_set_values": [],
+                        "is_lob_column": false,
+                        "is_joined_dup_column": false,
+                        "is_unpivot_mocked_column": false,
+                        "is_hidden": false,
+                        "from_alias_table": false,
+                        "is_rowkey_column": false,
+                        "is_unique_key_column": false,
+                        "is_mul_key_column": false,
+                        "is_strict_json_column": "0",
+                        "srs_id": "18446744073709551584",
+                        "udt_set_id": "0"
+                    },
+                    "expression": {
+                        "item_type": "T_FUN_COLUMN_CONV",
+                        "result_type": {
+                            "meta": {
+                                "type": "INT",
+                                "collation": "binary",
+                                "coercibility": "NUMERIC"
+                            },
+                            "accuracy": {
+                                "length":-"1",
+                                "precision": "11",
+                                "scale": "0"
+                            },
+                            "flag": "0",
+                            "calc_type": {
+                                "type": "NULL",
+                                "collation": "invalid_type",
+                                "coercibility": "INVALID"
+                            }
+                        },
+                        "expr_info": [
+                            "IS_FUNC",
+                            "CNT_CONST",
+                            "CNT_FUNC",
+                            "CNT_SUB_QUERY",
+                            "CNT_ALIAS"
+                        ],
+                        "rel_id": [],
+                        "func": "column_conv",
+                        "children": [
+                            {
+                                "item_type": "T_INT32",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "INT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "INT": "4"
+                                }
+                            },
+                            {
+                                "item_type": "T_INT32",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "INT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "INT": "63"
+                                }
+                            },
+                            {
+                                "item_type": "T_INT",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "BIGINT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "BIGINT": "51539607551"
+                                }
+                            },
+                            {
+                                "item_type": "T_TINYINT",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "TINYINT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "TINYINT": "1"
+                                }
+                            },
+                            {
+                                "item_type": "T_REF_ALIAS_COLUMN",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "INT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision": "11",
+                                        "scale": "0"
+                                    },
+                                    "flag": "0",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_ALIAS",
+                                    "CNT_SUB_QUERY",
+                                    "CNT_ALIAS"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "item_type": "T_REF_QUERY",
+                                    "result_type": {
+                                        "meta": {
+                                            "type": "BIGINT",
+                                            "collation": "binary",
+                                            "coercibility": "NUMERIC"
+                                        },
+                                        "accuracy": {
+                                            "length":-"1",
+                                            "precision":-"1",
+                                            "scale":-"1"
+                                        },
+                                        "flag": "0",
+                                        "calc_type": {
+                                            "type": "NULL",
+                                            "collation": "invalid_type",
+                                            "coercibility": "INVALID"
+                                        }
+                                    },
+                                    "expr_info": [
+                                        "IS_SUB_QUERY",
+                                        "CNT_SUB_QUERY"
+                                    ],
+                                    "rel_id": [],
+                                    "id":-"1",
+                                    "output_column": "0",
+                                    "is_set": false,
+                                    "is_cursor": false,
+                                    "is_multiset": false,
+                                    "column_types": [],
+                                    "enum_set_values": [],
+                                    "children": []
+                                },
+                                "enum_set_values": []
+                            },
+                            {
+                                "item_type": "T_CHAR",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "CHAR",
+                                        "collation": "utf8mb4_general_ci",
+                                        "coercibility": "IMPLICIT"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "CHAR": "test"."t1"."c1",
+                                    "collation": "utf8mb4_general_ci",
+                                    "coercibility": "IMPLICIT"
+                                }
+                            }
+                        ],
+                        "enum_set_values": [],
+                        "dblink_name": "",
+                        "dblink_id": "18446744073709551615",
+                        "local_session_var": {},
+                        "local_session_var_id":-"1",
+                        "mview_id": "18446744073709551615"
+                    },
+                    "is_predicate_column": false
+                },
+                {
+                    "column": {
+                        "item_type": "T_REF_COLUMN",
+                        "result_type": {
+                            "meta": {
+                                "type": "INT",
+                                "collation": "binary",
+                                "coercibility": "NUMERIC"
+                            },
+                            "accuracy": {
+                                "length":-"1",
+                                "precision": "11",
+                                "scale": "0"
+                            },
+                            "flag": "0",
+                            "calc_type": {
+                                "type": "NULL",
+                                "collation": "invalid_type",
+                                "coercibility": "INVALID"
+                            }
+                        },
+                        "expr_info": [
+                            "IS_COLUMN",
+                            "CNT_COLUMN"
+                        ],
+                        "rel_id": [
+                            "1"
+                        ],
+                        "table_id": "18446744073709551614",
+                        "column_id": "18",
+                        "database_name": "test",
+                        "table_name": "t1",
+                        "synonym_name": "",
+                        "synonym_db_name": "",
+                        "column_name": "c2",
+                        "column_flags": "0",
+                        "enum_set_values": [],
+                        "is_lob_column": false,
+                        "is_joined_dup_column": false,
+                        "is_unpivot_mocked_column": false,
+                        "is_hidden": false,
+                        "from_alias_table": false,
+                        "is_rowkey_column": false,
+                        "is_unique_key_column": false,
+                        "is_mul_key_column": false,
+                        "is_strict_json_column": "0",
+                        "srs_id": "18446744073709551584",
+                        "udt_set_id": "0"
+                    },
+                    "expression": {
+                        "item_type": "T_FUN_COLUMN_CONV",
+                        "result_type": {
+                            "meta": {
+                                "type": "INT",
+                                "collation": "binary",
+                                "coercibility": "NUMERIC"
+                            },
+                            "accuracy": {
+                                "length":-"1",
+                                "precision": "11",
+                                "scale": "0"
+                            },
+                            "flag": "0",
+                            "calc_type": {
+                                "type": "NULL",
+                                "collation": "invalid_type",
+                                "coercibility": "INVALID"
+                            }
+                        },
+                        "expr_info": [
+                            "IS_FUNC",
+                            "CNT_CONST",
+                            "CNT_FUNC",
+                            "CNT_SUB_QUERY",
+                            "CNT_ALIAS"
+                        ],
+                        "rel_id": [],
+                        "func": "column_conv",
+                        "children": [
+                            {
+                                "item_type": "T_INT32",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "INT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "INT": "4"
+                                }
+                            },
+                            {
+                                "item_type": "T_INT32",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "INT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "INT": "63"
+                                }
+                            },
+                            {
+                                "item_type": "T_INT",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "BIGINT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "BIGINT": "51539607551"
+                                }
+                            },
+                            {
+                                "item_type": "T_TINYINT",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "TINYINT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "TINYINT": "1"
+                                }
+                            },
+                            {
+                                "item_type": "T_REF_ALIAS_COLUMN",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "INT",
+                                        "collation": "binary",
+                                        "coercibility": "NUMERIC"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision": "11",
+                                        "scale": "0"
+                                    },
+                                    "flag": "0",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_ALIAS",
+                                    "CNT_SUB_QUERY",
+                                    "CNT_ALIAS"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "item_type": "T_REF_QUERY",
+                                    "result_type": {
+                                        "meta": {
+                                            "type": "BIGINT",
+                                            "collation": "binary",
+                                            "coercibility": "NUMERIC"
+                                        },
+                                        "accuracy": {
+                                            "length":-"1",
+                                            "precision":-"1",
+                                            "scale":-"1"
+                                        },
+                                        "flag": "0",
+                                        "calc_type": {
+                                            "type": "NULL",
+                                            "collation": "invalid_type",
+                                            "coercibility": "INVALID"
+                                        }
+                                    },
+                                    "expr_info": [
+                                        "IS_SUB_QUERY",
+                                        "CNT_SUB_QUERY"
+                                    ],
+                                    "rel_id": [],
+                                    "id":-"1",
+                                    "output_column": "0",
+                                    "is_set": false,
+                                    "is_cursor": false,
+                                    "is_multiset": false,
+                                    "column_types": [],
+                                    "enum_set_values": [],
+                                    "children": []
+                                },
+                                "enum_set_values": []
+                            },
+                            {
+                                "item_type": "T_CHAR",
+                                "result_type": {
+                                    "meta": {
+                                        "type": "CHAR",
+                                        "collation": "utf8mb4_general_ci",
+                                        "coercibility": "IMPLICIT"
+                                    },
+                                    "accuracy": {
+                                        "length":-"1",
+                                        "precision":-"1",
+                                        "scale":-"1"
+                                    },
+                                    "flag": "1",
+                                    "calc_type": {
+                                        "type": "NULL",
+                                        "collation": "invalid_type",
+                                        "coercibility": "INVALID"
+                                    }
+                                },
+                                "expr_info": [
+                                    "IS_CONST",
+                                    "CNT_CONST"
+                                ],
+                                "rel_id": [],
+                                "value": {
+                                    "CHAR": "test"."t1"."c2",
+                                    "collation": "utf8mb4_general_ci",
+                                    "coercibility": "IMPLICIT"
+                                }
+                            }
+                        ],
+                        "enum_set_values": [],
+                        "dblink_name": "",
+                        "dblink_id": "18446744073709551615",
+                        "local_session_var": {},
+                        "local_session_var_id":-"1",
+                        "mview_id": "18446744073709551615"
+                    },
+                    "is_predicate_column": false
+                }
+            ]
+        }
+    ],
+    "where": [],
+    "order_by": [],
+    "limit": null,
+    "offset": null,
+    "hint": {},
+    "query_context": {
+        "param_num": "0",
+        "fetch_cur_time": true,
+        "calculable_items": []
+    }
+}
