@@ -1,0 +1,131 @@
+#owner: xiaoyen.xy
+#owner group: sql1
+# tags: optimizer
+
+--disable_warnings
+drop table if exists t1, t2, t3;
+--enable_warnings
+
+CREATE TABLE t1 (c0 INT, c1 INT,c2 INT,c3 INT);
+CREATE TABLE t2 (c0 INT, c1 INT,c2 INT,c3 INT);
+CREATE TABLE t3 (c0 INT, c1 INT,c2 INT,c3 INT);
+
+INSERT INTO t1 (c0, c1, c2, c3) VALUES
+(1, 10, 5, 50),
+(2, 20, 15, 150),
+(3, 30, 25, 250),
+(4, 40, 35, 350);
+
+INSERT INTO t2 (c0, c1, c2, c3) VALUES
+(1, 11, 51, 5),
+(2, 21, 151, 15),
+(3, 31, 251, 25),
+(4, 41, 351, 35);
+
+INSERT INTO t3 (c0, c1, c2, c3) VALUES
+(1, 11, 15, 60),
+(2, 21, 115, 160),
+(3, 31, 125, 260),
+(4, 41, 135, 360);
+
+# case 1
+EXPLAIN SELECT /*+NO_REWRITE*/
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ (SELECT c3
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c3
+FROM t1;
+
+EXPLAIN SELECT
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ (SELECT c3
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c3
+FROM t1;
+
+SELECT
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ (SELECT c3
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c3
+FROM t1;
+
+# case 2
+EXPLAIN SELECT /*+NO_REWRITE*/
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ c3 as c4,
+ (SELECT t3.c0
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c5,
+ (SELECT t3.c2
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c6
+FROM t1;
+
+EXPLAIN SELECT
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ c3 as c4,
+ (SELECT t3.c0
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c5,
+ (SELECT t3.c2
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c6
+FROM t1;
+
+SELECT /*+NO_REWRITE*/
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ c3 as c4,
+ (SELECT t3.c0
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c5,
+ (SELECT t3.c2
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c6
+FROM t1;
+
+SELECT
+ (SELECT c1
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c1,
+ (SELECT c2
+  FROM t2
+  WHERE t2.c0 = t1.c0) AS c2,
+ c3 as c4,
+ (SELECT t3.c0
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c5,
+ (SELECT t3.c2
+  FROM t3,t2
+  WHERE t3.c1 = t2.c1 AND t3.c0 = t1.c0) AS c6
+FROM t1;
