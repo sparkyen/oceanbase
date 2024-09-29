@@ -277,5 +277,43 @@ int ObUpdateStmt::remove_invalid_assignment()
   return ret;
 }
 
+int64_t ObUpdateStmt::to_string(char *buf, const int64_t buf_len) const
+{
+  int64_t pos = 0;
+  J_OBJ_START();
+  ObArray<ObSelectStmt*> child_stmts;
+  if (OB_ISNULL(query_ctx_)) {
+    databuff_printf(buf, buf_len, pos, "ERROR query context is null");
+  } else if (get_child_stmts(child_stmts) != OB_SUCCESS) {
+    databuff_printf(buf, buf_len, pos, "ERROR get child stmts failed");
+  } else {
+    J_KV(
+          N_STMT_TYPE, stmt_type_,
+          N_TABLE, table_items_,
+          N_IS_IGNORE, ignore_,
+          N_PARTITION_EXPR, part_expr_items_,
+          N_COLUMN, column_items_,
+          "update_tables", table_info_ ,
+          N_WHERE, condition_exprs_,
+          N_ORDER_BY, order_items_,
+          N_LIMIT, limit_count_expr_,
+          N_OFFSET, limit_offset_expr_,
+          N_STMT_HINT, stmt_hint_,
+          N_QUERY_CTX, query_ctx_,
+          K(child_stmts)
+          );
+  }
+  if (is_error_logging()) {
+    J_KV("is_err_log", error_log_info_.is_error_log_,
+         "err_log_table_name", error_log_info_.table_name_,
+         "err_log_database_name", error_log_info_.database_name_,
+         "err_log_table_id", error_log_info_.table_id_,
+         "err_log_reject_limit", error_log_info_.reject_limit_,
+         "err_log_exprs", error_log_info_.error_log_exprs_);
+  }
+  J_OBJ_END();
+  return pos;
+}
+
 } //namespace sql
 } //namespace oceanbase

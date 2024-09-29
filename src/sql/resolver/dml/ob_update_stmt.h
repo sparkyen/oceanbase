@@ -64,18 +64,19 @@ public:
   virtual int remove_table_item_dml_info(const TableItem* table) override;
   int remove_invalid_assignment();
 
-  TO_STRING_KV(N_STMT_TYPE, stmt_type_,
-      N_TABLE, table_items_,
-      N_IS_IGNORE, ignore_,
-      N_PARTITION_EXPR, part_expr_items_,
-      N_COLUMN, column_items_,
-      "update_tables", table_info_ ,
-      N_WHERE, condition_exprs_,
-      N_ORDER_BY, order_items_,
-      N_LIMIT, limit_count_expr_,
-      N_OFFSET, limit_offset_expr_,
-      N_STMT_HINT, stmt_hint_,
-      N_QUERY_CTX, query_ctx_);
+  // TO_STRING_KV(N_STMT_TYPE, stmt_type_,
+  //     N_TABLE, table_items_,
+  //     N_IS_IGNORE, ignore_,
+  //     N_PARTITION_EXPR, part_expr_items_,
+  //     N_COLUMN, column_items_,
+  //     "update_tables", table_info_ ,
+  //     N_WHERE, condition_exprs_,
+  //     N_ORDER_BY, order_items_,
+  //     N_LIMIT, limit_count_expr_,
+  //     N_OFFSET, limit_offset_expr_,
+  //     N_STMT_HINT, stmt_hint_,
+  //     N_QUERY_CTX, query_ctx_);
+  DECLARE_VIRTUAL_TO_STRING;
 
 private:
   common::ObSEArray<ObUpdateTableInfo*, 2, common::ModulePageAllocator, true> table_info_;

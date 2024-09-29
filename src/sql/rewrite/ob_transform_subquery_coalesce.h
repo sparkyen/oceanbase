@@ -148,6 +148,14 @@ private:
   
   int coalesce_update_assignment(ObDMLStmt *stmt, bool &trans_happened);
 
+  int coalece_select_exprs(ObDMLStmt *stmt, bool &trans_happened);
+
+  int adjust_select_exprs(ObSelectStmt *select_stmt,
+                          StmtCompareHelper *helper, 
+                          ObIArray<ObRawExpr*> &select_exprs, 
+                          ObIArray<int64_t> &index_map, 
+                          ObSelectStmt *coalesce_query);
+
   int get_subquery_assign_exprs(ObIArray<ObRawExpr*> &assign_exprs, 
                                 ObIArray<ObSelectStmt*> &subqueries);
 

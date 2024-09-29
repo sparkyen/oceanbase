@@ -52,6 +52,10 @@ int ObTransformSubqueryCoalesce::transform_one_stmt(common::ObIArray<ObParentDML
       trans_happened |= is_happened;
       LOG_TRACE("succeed to transform for coalesce update set", K(is_happened), K(ret));
     }
+  } else if(OB_FAIL(coalece_select_exprs(stmt, is_happened))) {
+    LOG_WARN("failed to transform for coalesce select set", K(ret));
+  } else if (OB_FALSE_IT(trans_happened |= is_happened)) {
+      //do nothing
   } else if (OB_FAIL(transform_same_exprs(
                       stmt, static_cast<ObSelectStmt*>(stmt)->get_having_exprs(), is_happened))) {
     LOG_WARN("failed to transform same exprs", K(ret));
@@ -1602,6 +1606,163 @@ int ObTransformSubqueryCoalesce::check_subquery_validity(ObQueryRefRawExpr *quer
   }
   return ret;
 }
+
+int ObTransformSubqueryCoalesce::coalece_select_exprs(ObDMLStmt *stmt, bool &trans_happened)
+{
+  int ret = OB_SUCCESS;
+  ObQueryCtx *query_ctx = NULL;
+  trans_happened = false;
+  if (OB_ISNULL(stmt) ||
+      OB_ISNULL(query_ctx = stmt->get_query_ctx())) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("unexpect null stmt", K(ret));
+  } else if (!stmt->is_select_stmt()) {
+    //do nothing
+  } else {
+    ObSelectStmt *select_stmt = static_cast<ObSelectStmt*>(stmt);
+    //common subquery infos
+    ObSEArray<StmtCompareHelper*, 4> coalesce_infos;
+    ObSEArray<ObRawExpr*, 4> select_exprs;
+    ObSEArray<ObSelectStmt*, 4> subqueries;
+    ObSEArray<ObRawExpr*, 4> inner_select_expr;
+    ObSEArray<int64_t, 4> index_map;
+    ObSelectStmt *coalesce_query = NULL;
+    if (OB_FAIL(select_stmt->get_select_exprs(select_exprs))) {
+      LOG_WARN("failed to get assignment exprs", K(ret));
+    } else if (OB_FAIL(get_subquery_assign_exprs(select_exprs, subqueries))) {
+      LOG_WARN("failed to get subquery exprs", K(ret));
+    } else if (OB_FAIL(get_coalesce_infos(*stmt, subqueries, coalesce_infos))) {
+      LOG_WARN("failed to get coalesce infos", K(ret));
+    } else if (OB_FAIL(remove_invalid_coalesce_info(coalesce_infos))) {
+      LOG_WARN("failed to remove invalid infos", K(ret));
+    } else {
+      LOG_TRACE("succeed to get coalesce infos", K(subqueries), K(coalesce_infos));
+    }
+    //coalesce earch group subquery
+    for (int64_t i = 0; OB_SUCC(ret) && i < coalesce_infos.count(); ++i) {
+      StmtCompareHelper *helper = coalesce_infos.at(i);
+      //Original select expr
+      inner_select_expr.reuse();
+      //The index map of the original select expr 
+      //corresponding to the new select expr
+      index_map.reuse();
+      //Merged subquery
+      coalesce_query = NULL;
+      if (OB_ISNULL(helper)) {
+        ret = OB_ERR_UNEXPECTED;
+        LOG_WARN("unexpect null helper", K(ret));
+      } else if (helper->similar_stmts_.count() < 2) {
+        //do nothing
+      } else if (OB_FAIL(coalesce_subquery(*helper, 
+                                           query_ctx,
+                                           inner_select_expr, 
+                                           index_map, 
+                                           coalesce_query))) {
+        LOG_WARN("failed to create temp table", K(ret));
+      } else if (OB_FAIL(adjust_select_exprs(select_stmt, 
+                                             helper,
+                                             inner_select_expr, 
+                                             index_map, 
+                                             coalesce_query))) {
+        LOG_WARN("failed to adjust assign exprs", K(ret));
+      } else {
+        trans_happened = true;
+      }
+    }
+    if (OB_SUCC(ret) && trans_happened) {
+      if (OB_FAIL(select_stmt->adjust_subquery_list())) {
+        LOG_WARN("failed to adjust subquery list", K(ret));
+      }
+    }
+    for (int64_t i = 0; i < coalesce_infos.count(); i++) {
+      if (coalesce_infos.at(i) != NULL) {
+        coalesce_infos.at(i)->~StmtCompareHelper();
+        coalesce_infos.at(i) = NULL;
+      }
+    }
+  }
+  return ret;
+}
+
+int ObTransformSubqueryCoalesce::adjust_select_exprs(ObSelectStmt *select_stmt,
+                                                     StmtCompareHelper *helper, 
+                                                     ObIArray<ObRawExpr*> &select_exprs, 
+                                                     ObIArray<int64_t> &index_map, 
+                                                     ObSelectStmt *coalesce_query) 
+{
+  int ret = OB_SUCCESS;
+  ObQueryRefRawExpr *coalesce_query_expr = NULL;
+  ObArray<ObExecParamRawExpr *> all_params;
+  ObSEArray<ObRawExpr*, 4> old_exprs;
+  ObSEArray<ObRawExpr*, 4> new_exprs;
+  if (OB_ISNULL(select_stmt) || OB_ISNULL(helper) || OB_ISNULL(coalesce_query)) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("unexpect null param", K(ret));
+  } else if (OB_FAIL(ctx_->expr_factory_->create_raw_expr(T_REF_QUERY, coalesce_query_expr))) {
+    LOG_WARN("fail to create raw expr", K(ret));
+  } else if (OB_ISNULL(coalesce_query_expr)) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("unexpect null expr", K(ret));
+  } else if (OB_FAIL(get_exec_params(select_stmt, all_params))) {
+    LOG_WARN("failed to get all params", K(ret));
+  } else {
+    coalesce_query_expr->set_ref_stmt(coalesce_query);
+    if (OB_FAIL(ObTransformUtils::inherit_exec_params(all_params, coalesce_query_expr))) {
+      LOG_WARN("failed to inherit exec params", K(ret));
+    } else if (OB_FAIL(coalesce_query_expr->formalize(ctx_->session_info_))) {
+      LOG_WARN("failed to formalize coalesce query expr", K(ret));
+    }
+  }
+  for (int64_t i = 0; OB_SUCC(ret) && i < select_stmt->get_select_items().count(); ++i) {
+    SelectItem &select_item = select_stmt->get_select_item(i);
+    if (OB_ISNULL(select_item.expr_)) {
+      ret = OB_ERR_UNEXPECTED;
+      LOG_WARN("unexpect null expr", K(ret));
+    } else if (OB_FAIL(select_item.expr_->extract_info())) {
+      LOG_WARN("failed to extract expr info", K(ret));
+    } else if (select_item.expr_->has_flag(CNT_ALIAS)) {
+      if (OB_FAIL(adjust_alias_assign_exprs(select_item.expr_, 
+                                            helper, 
+                                            select_exprs, 
+                                            index_map, 
+                                            coalesce_query_expr, 
+                                            coalesce_query,
+                                            old_exprs,
+                                            new_exprs))) {
+        LOG_WARN("failed to extract expr", K(ret));
+      }
+    } else if (select_item.expr_->has_flag(CNT_SUB_QUERY)) {
+      if (OB_FAIL(adjust_query_assign_exprs(select_item.expr_, 
+                                            helper, 
+                                            select_exprs, 
+                                            index_map, 
+                                            coalesce_query_expr, 
+                                            coalesce_query,
+                                            old_exprs,
+                                            new_exprs))) {
+        LOG_WARN("failed to extract expr", K(ret));
+      }
+    }
+  }
+  if (OB_SUCC(ret) && !old_exprs.empty()) {
+    for (int64_t i = 0; OB_SUCC(ret) && i < select_stmt->get_select_items().count(); ++i) {
+      SelectItem &select_item = select_stmt->get_select_item(i);
+      if (OB_ISNULL(select_item.expr_)) {
+        ret = OB_ERR_UNEXPECTED;
+        LOG_WARN("unexpect null expr", K(ret));
+      } else if (!select_item.expr_->has_flag(CNT_ALIAS) &&
+                !select_item.expr_->has_flag(CNT_SUB_QUERY)) {
+        // do nothing
+      } else if (OB_FAIL(ObTransformUtils::replace_expr(old_exprs,
+                                                        new_exprs,
+                                                        select_item.expr_))) {
+        LOG_WARN("failed to replace expr", K(ret));
+      }
+    }
+  }
+  return ret;
+}
+
 /**
  * coalesce_update_assignment
  * Combining isomorphic subqueries in a set
