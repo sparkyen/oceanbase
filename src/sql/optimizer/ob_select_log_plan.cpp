@@ -4706,21 +4706,130 @@ int ObSelectLogPlan::generate_raw_plan_for_expr_values()
   return ret;
 }
 
+int ObSelectLogPlan::extract_select_subqueries(ObIArray<ObRawExpr*> &normal_query_refs,
+                                               ObIArray<ObRawExpr*> &alias_query_refs)
+{
+  int ret = OB_SUCCESS;
+  const ObSelectStmt *select_stmt = get_stmt();
+  ObSEArray<ObRawExpr*, 8> select_exprs;
+  if (OB_ISNULL(select_stmt)) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("unexpected null", K(ret), K(select_stmt));
+  } else if (OB_FAIL(select_stmt->get_select_exprs(select_exprs))) {
+    LOG_WARN("failed to get assign exprs", K(ret));
+  } else {
+    for (int64_t i = 0; OB_SUCC(ret) && i < select_exprs.count(); ++i) {
+      if (OB_FAIL(extract_select_subqueries(select_exprs.at(i),
+                                                normal_query_refs,
+                                                alias_query_refs))) {
+        LOG_WARN("failed to replace alias ref expr", K(ret));
+      }
+    }
+  }
+  return ret;
+
+}
+
+int ObSelectLogPlan::extract_select_subqueries(ObRawExpr *expr,
+                                               ObIArray<ObRawExpr*> &normal_query_refs,
+                                               ObIArray<ObRawExpr*> &alias_query_refs)
+{
+  int ret = OB_SUCCESS;
+  if (OB_ISNULL(expr)) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("expr is null", K(ret));
+  } else if (expr->has_flag(CNT_ONETIME)
+             || expr->is_query_ref_expr()
+             || T_OP_EXISTS == expr->get_expr_type()
+             || T_OP_NOT_EXISTS == expr->get_expr_type()
+             || expr->has_flag(IS_WITH_ALL)
+             || expr->has_flag(IS_WITH_ANY)) {
+    if (OB_FAIL(add_var_to_array_no_dup(normal_query_refs, expr))) {
+      LOG_WARN("failed to add var to array no dup", K(ret));
+    }
+  } else if (expr->is_alias_ref_expr()) {
+    ObAliasRefRawExpr *alias = static_cast<ObAliasRefRawExpr *>(expr);
+    if (OB_UNLIKELY(!alias->is_ref_query_output())) {
+      ret = OB_ERR_UNEXPECTED;
+      LOG_WARN("invalid alias expr", K(ret), K(*alias));
+    } else if (OB_FAIL(add_var_to_array_no_dup(alias_query_refs, alias->get_param_expr(0)))) {
+      LOG_WARN("failed to add var to array with out duplicate", K(ret));
+    }
+  } else if (expr->has_flag(CNT_SUB_QUERY)) {
+    for (int64_t i = 0; OB_SUCC(ret) && i < expr->get_param_count(); ++i) {
+      if (OB_FAIL(SMART_CALL(extract_select_subqueries(expr->get_param_expr(i),
+                                                       normal_query_refs,
+                                                       alias_query_refs)))) {
+        LOG_WARN("failed to extract query ref expr", K(ret));
+      }
+    }
+  }
+  return ret;
+}
+
+
 int ObSelectLogPlan::candi_allocate_subplan_filter_for_select_item()
 {
   int ret = OB_SUCCESS;
-  const ObSelectStmt *select_stmt = NULL;
-  ObSEArray<ObRawExpr*, 4> select_exprs;
-  ObSEArray<ObRawExpr*, 4> subquery_exprs;
-  if (OB_ISNULL(select_stmt = get_stmt())) {
-    ret = OB_ERR_UNEXPECTED;
-    LOG_WARN("null stmt", K(select_stmt), K(ret));
-  } else if (OB_FAIL(select_stmt->get_select_exprs(select_exprs))) {
-    LOG_WARN("failed to get select exprs", K(ret));
-  } else if (OB_FAIL(candi_allocate_subplan_filter(select_exprs))) {
-    LOG_WARN("failed to candi allocate subplan filter for exprs", K(ret));
+  ObSEArray<ObRawExpr*, 4> normal_query_refs;
+  ObSEArray<ObRawExpr*, 4> alias_query_refs;
+  if (OB_FAIL(extract_select_subqueries(normal_query_refs, alias_query_refs))) {
+    LOG_WARN("failed to get select subquery exprs", K(ret));
+  } else if (!normal_query_refs.empty() &&
+              OB_FAIL(candi_allocate_subplan_filter(normal_query_refs, NULL, false))) {
+    LOG_WARN("failed to allocate subplan", K(ret));
+  } else if (!alias_query_refs.empty() &&
+              OB_FAIL(candi_allocate_subplan_filter(alias_query_refs, NULL, true))) {
+    LOG_WARN("failed to allocate subplan filter", K(ret));
   } else {
-    LOG_TRACE("succeed to allocate subplan filter for select item", K(select_stmt->get_stmt_id()));
+    LOG_TRACE("succeed to allocate subplan filter for select item", K(ret),
+                              K(normal_query_refs.count()), K(alias_query_refs.count()));
+  }
+  return ret;
+}
+int ObSelectLogPlan::perform_vector_select_expr_replacement(ObSelectStmt *stmt) 
+{
+  int ret = OB_SUCCESS;
+  ObSQLSessionInfo* session_info = optimizer_context_.get_session_info();
+  if (OB_ISNULL(stmt)) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("stmt is null", K(ret), K(stmt));
+  } else {
+    for (int64_t i = 0; OB_SUCC(ret) && i < stmt->get_select_items().count(); ++i) {
+      ObRawExpr *value = stmt->get_select_item(i).expr_;
+      bool replace_happened = false;
+      if (OB_FAIL(replace_alias_ref_expr(value, replace_happened))) {
+        LOG_WARN("failed to replace alias ref expr", K(ret));
+      } else if (replace_happened && OB_FAIL(value->formalize(session_info))) {
+        LOG_WARN("failed to formalize expr", K(ret));
+      }
+    }
+  }
+  return ret;
+
+}
+
+int ObSelectLogPlan::replace_alias_ref_expr(ObRawExpr *&expr, bool &replace_happened)
+{
+  int ret = OB_SUCCESS;
+  if (OB_ISNULL(expr)) {
+    ret = OB_ERR_UNEXPECTED;
+    LOG_WARN("get null expr", K(ret));
+  } else if (expr->is_alias_ref_expr()) {
+    ObAliasRefRawExpr *alias = static_cast<ObAliasRefRawExpr *>(expr);
+    if (OB_UNLIKELY(!alias->is_ref_query_output())) {
+      ret = OB_ERR_UNEXPECTED;
+      LOG_WARN("invalid alias expr", K(ret), K(*alias));
+    } else {
+      expr = alias->get_ref_expr();
+      replace_happened = true;
+    }
+  } else {
+    for (int64_t i = 0; OB_SUCC(ret) && i < expr->get_param_count(); ++i) {
+      if (OB_FAIL(replace_alias_ref_expr(expr->get_param_expr(i), replace_happened))) {
+        LOG_WARN("failed to replace alias ref expr", K(ret));
+      }
+    }
   }
   return ret;
 }

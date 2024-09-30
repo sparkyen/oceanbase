@@ -10844,28 +10844,34 @@ int ObLogPlan::adjust_final_plan_info(ObLogicalOperator *&op)
         LOG_WARN("failed to allocate subquery id", K(ret));
       } else if (!subplan_filter->is_update_set()) {
         // do nothing
-      } else if (OB_UNLIKELY(!subplan_filter->get_stmt()->is_update_stmt())) {
-        ret = OB_ERR_UNEXPECTED;
-        LOG_WARN("update stmt is expected", K(ret));
       } else {
-        ObUpdateLogPlan *plan = static_cast<ObUpdateLogPlan *>(op->get_plan());
-        // stmt is only allowed to be modified in the function;
-        ObUpdateStmt *stmt = const_cast<ObUpdateStmt* >(plan->get_stmt());
-        if (OB_FAIL(plan->perform_vector_assign_expr_replacement(stmt))) {
-          LOG_WARN("failed to perform vector assgin expr replace", K(ret));
-        }
-        for (int64_t i = 1; OB_SUCC(ret) && i < op->get_num_of_child(); ++i) {
-          ObLogPlan *child_plan = NULL;
-          if (OB_ISNULL(op->get_child(i)) ||
-              OB_ISNULL(child_plan = op->get_child(i)->get_plan())) {
-            ret = OB_ERR_UNEXPECTED;
-            LOG_WARN("child expr is null", K(ret));
-          } else if (OB_FAIL(plan->group_replacer_.append_replace_exprs(
-                                    child_plan->group_replacer_))) {
-            LOG_WARN("failed to append group replaced exprs", K(ret));
-          } else if (OB_FAIL(plan->window_function_replacer_.append_replace_exprs(
-                                    child_plan->window_function_replacer_))) {
-            LOG_WARN("failed to append window_function_replaced_exprs", K(ret));
+        if (subplan_filter->get_stmt()->is_update_stmt()) {
+          ObUpdateLogPlan *update_plan = static_cast<ObUpdateLogPlan *>(op->get_plan());
+          // stmt is only allowed to be modified in the function;
+          ObUpdateStmt *stmt = const_cast<ObUpdateStmt* >(update_plan->get_stmt());
+          if (OB_FAIL(update_plan->perform_vector_assign_expr_replacement(stmt))) {
+            LOG_WARN("failed to perform vector assgin expr replace", K(ret));
+          }
+          for (int64_t i = 1; OB_SUCC(ret) && i < op->get_num_of_child(); ++i) {
+            ObLogPlan *child_plan = NULL;
+            if (OB_ISNULL(op->get_child(i)) ||
+                OB_ISNULL(child_plan = op->get_child(i)->get_plan())) {
+              ret = OB_ERR_UNEXPECTED;
+              LOG_WARN("child expr is null", K(ret));
+            } else if (OB_FAIL(update_plan->group_replacer_.append_replace_exprs(
+                                      child_plan->group_replacer_))) {
+              LOG_WARN("failed to append group replaced exprs", K(ret));
+            } else if (OB_FAIL(update_plan->window_function_replacer_.append_replace_exprs(
+                                      child_plan->window_function_replacer_))) {
+              LOG_WARN("failed to append window_function_replaced_exprs", K(ret));
+            }
+          }
+        } else if(subplan_filter->get_stmt()->is_select_stmt()) {
+          ObSelectLogPlan *select_plan = static_cast<ObSelectLogPlan *>(op->get_plan());
+          // stmt is only allowed to be modified in the function;
+          ObSelectStmt *stmt = const_cast<ObSelectStmt* >(select_plan->get_stmt());
+          if (OB_FAIL(select_plan->perform_vector_select_expr_replacement(stmt))) {
+            LOG_WARN("failed to perform vector select expr replace", K(ret));
           }
         }
       }

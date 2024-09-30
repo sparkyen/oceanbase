@@ -50,6 +50,8 @@ public:
   int perform_late_materialization(ObSelectStmt *stmt,
                                    ObLogicalOperator *&op);
 
+  int perform_vector_select_expr_replacement(ObSelectStmt *stmt);
+
 protected:
   virtual int generate_normal_raw_plan() override;
   virtual int generate_dblink_raw_plan() override;
@@ -471,6 +473,15 @@ private:
    */
   //    int process_subplan();
   int candi_allocate_subplan_filter_for_select_item();
+
+  int extract_select_subqueries(ObIArray<ObRawExpr*> &normal_query_refs,
+                                ObIArray<ObRawExpr*> &alias_query_refs);
+
+  int extract_select_subqueries(ObRawExpr *expr,
+                                ObIArray<ObRawExpr*> &normal_query_refs,
+                                ObIArray<ObRawExpr*> &alias_query_refs);
+
+  int replace_alias_ref_expr(ObRawExpr *&expr, bool &replace_happened);
 
   struct WinFuncOpHelper
   {
